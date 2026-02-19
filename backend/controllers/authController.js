@@ -109,9 +109,11 @@ export const getMe = async (req, res) => {
 export const googleAuth = (req, res, next) => {
   // Check if Google OAuth is configured
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-    return res.redirect(`${process.env.FRONTEND_URL}/login?error=google_auth_not_configured`);
+    console.error('❌ Google OAuth attempted but credentials not configured');
+    return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?error=google_auth_not_configured`);
   }
   
+  console.log('✅ Initiating Google OAuth...');
   passport.authenticate('google', {
     scope: ['profile', 'email'],
     session: false
@@ -120,28 +122,33 @@ export const googleAuth = (req, res, next) => {
 
 // Google OAuth callback handler
 export const googleAuthCallback = (req, res, next) => {
+  console.log('📥 Google OAuth callback received');
+  
   passport.authenticate('google', { session: false }, (err, user, info) => {
     if (err) {
-      console.error('Google auth error:', err);
-      return res.redirect(`${process.env.FRONTEND_URL}/login?error=authentication_failed`);
+      console.error('❌ Google auth error:', err);
+      return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?error=authentication_failed`);
     }
 
     if (!user) {
-      console.log('No user returned from Google auth');
-      return res.redirect(`${process.env.FRONTEND_URL}/login?error=authentication_failed`);
+      console.log('❌ No user returned from Google auth');
+      return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?error=authentication_failed`);
     }
 
     try {
       // Generate JWT token for the user
       const token = generateToken(user._id);
+      
+      console.log(`✅ User authenticated: ${user.email} (${user.role})`);
 
       // Redirect to frontend with token and user info
-      const redirectUrl = `${process.env.FRONTEND_URL}/auth/callback?token=${token}&userId=${user._id}&role=${user.role}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`;
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+      const redirectUrl = `${frontendUrl}/auth/callback?token=${token}&userId=${user._id}&role=${user.role}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`;
       
       res.redirect(redirectUrl);
     } catch (error) {
-      console.error('Token generation error:', error);
-      return res.redirect(`${process.env.FRONTEND_URL}/login?error=token_generation_failed`);
+      console.error('❌ Token generation error:', error);
+      return res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?error=token_generation_failed`);
     }
   })(req, res, next);
 };

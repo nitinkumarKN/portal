@@ -4,20 +4,20 @@ import User from '../models/User.js';
 import StudentProfile from '../models/StudentProfile.js';
 import Company from '../models/Company.js';
 
-// Check if Google OAuth is configured
+// Check if Google OAuth is configured and only register strategy if credentials exist
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-  console.warn('⚠️  Google OAuth not configured. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env');
-}
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL || `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/auth/google/callback`,
-      passReqToCallback: true,
-    },
-    async (req, accessToken, refreshToken, profile, done) => {
+  console.warn('⚠️  Google OAuth not configured. Google login will not be available.');
+  console.warn('   Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in environment variables.');
+} else {
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL || `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/auth/google/callback`,
+        passReqToCallback: true,
+      },
+      async (req, accessToken, refreshToken, profile, done) => {
       try {
         const email = profile.emails[0].value;
         const role = req.query.state || 'student'; // Get role from state parameter
@@ -67,6 +67,7 @@ passport.use(
     }
   )
 );
+}
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
