@@ -7,6 +7,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+    },
     server: {
       port: 3000,
       proxy: {

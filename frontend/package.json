@@ -8,7 +8,7 @@
     "build": "node ./node_modules/vite/bin/vite.js build",
     "preview": "node ./node_modules/vite/bin/vite.js preview",
     "build:npx": "npx vite build",
-    "serve": "npx serve -s dist"
+    "start": "npx serve dist -c serve.json"
   },
   "dependencies": {
     "react": "^18.2.0",

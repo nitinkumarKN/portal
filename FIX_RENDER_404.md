@@ -39,10 +39,20 @@ VITE_API_URL=https://portalback-dsr4.onrender.com
 - Build Command: `npm install`
 - Start Command: `npm start`
 
-**Frontend:**
-- Build Command: `npm install && npm run build`  
+**Frontend (CRITICAL - Choose ONE option):**
+
+**Option 1: Static Site (Recommended)**
+- Service Type: **Static Site**
+- Build Command: `npm install && npm run build`
 - Publish Directory: `dist`
-- Start Command (if using web service): `npm run serve`
+
+**Option 2: Web Service**
+- Service Type: **Web Service**
+- Build Command: `npm install && npm run build`
+- Start Command: `npm start`
+- Port: Auto-detect or `3000`
+
+⚠️ **For React Router to work, you MUST use Static Site OR Web Service with proper SPA configuration!**
 
 ### Step 4: Redeploy Both Services
 1. Deploy backend first (wait for it to finish)
