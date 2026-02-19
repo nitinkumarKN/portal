@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import passport from 'passport';
 import User from '../models/User.js';
 import StudentProfile from '../models/StudentProfile.js';
 import Company from '../models/Company.js';
@@ -102,4 +103,38 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   res.json(req.user);
+};
+
+// Google OAuth authentication
+export const googleAuth = passport.authenticate('google', {
+  scope: ['profile', 'email'],
+  session: false
+});
+
+// Google OAuth callback handler
+export const googleAuthCallback = (req, res, next) => {
+  passport.authenticate('google', { session: false }, (err, user, info) => {
+    if (err) {
+      console.error('Google auth error:', err);
+      return res.redirect(`${process.env.FRONTEND_URL}/login?error=authentication_failed`);
+    }
+
+    if (!user) {
+      console.log('No user returned from Google auth');
+      return res.redirect(`${process.env.FRONTEND_URL}/login?error=authentication_failed`);
+    }
+
+    try {
+      // Generate JWT token for the user
+      const token = generateToken(user._id);
+
+      // Redirect to frontend with token and user info
+      const redirectUrl = `${process.env.FRONTEND_URL}/auth/callback?token=${token}&userId=${user._id}&role=${user.role}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`;
+      
+      res.redirect(redirectUrl);
+    } catch (error) {
+      console.error('Token generation error:', error);
+      return res.redirect(`${process.env.FRONTEND_URL}/login?error=token_generation_failed`);
+    }
+  })(req, res, next);
 };

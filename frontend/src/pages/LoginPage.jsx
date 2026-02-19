@@ -35,9 +35,8 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    toast.error('Google authentication is not yet configured. Please contact admin.');
-    // TODO: Implement Google OAuth
-    // window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://portalback-dsr4.onrender.com';
+    window.location.href = `${apiUrl}/api/auth/google`;
   };
 
   return (
@@ -111,6 +110,9 @@ export default function LoginPage() {
             <GoogleIcon />
             <span>Continue with Google</span>
           </button>
+          <p className="text-xs text-gray-500 text-center mt-2">
+            Google authentication is not yet configured. Please contact admin.
+          </p>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">

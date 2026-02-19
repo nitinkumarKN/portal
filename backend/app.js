@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import passport from 'passport';
+import './config/passport.js'; // Import passport configuration
 import authRoutes from './routes/authRoutes.js';
 import studentRoutes from './routes/studentRoutes.js';
 import companyRoutes from './routes/companyRoutes.js';
@@ -21,6 +23,9 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Initialize passport
+app.use(passport.initialize());
 
 // Serve static files from uploads directory (BEFORE notFound middleware)
 const uploadsDir = path.join(__dirname, '../uploads');

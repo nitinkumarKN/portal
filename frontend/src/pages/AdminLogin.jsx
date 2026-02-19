@@ -42,9 +42,8 @@ export default function AdminLogin() {
   };
 
   const handleGoogleLogin = () => {
-    toast.error('Google authentication for admin is not yet configured. Please contact system administrator.');
-    // TODO: Implement Google OAuth for admin
-    // window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google?role=admin`;
+    const apiUrl = import.meta.env.VITE_API_URL || 'https://portalback-dsr4.onrender.com';
+    window.location.href = `${apiUrl}/api/auth/google`;
   };
 
   return (
@@ -131,6 +130,9 @@ export default function AdminLogin() {
             <GoogleIcon />
             <span>Continue with Google</span>
           </button>
+          <p className="text-xs text-gray-500 text-center mt-2">
+            Google authentication is not yet configured. Please contact admin.
+          </p>
 
           <div className="mt-6 pt-6 border-t text-center">
             <Link to="/login" className="text-sm text-indigo-600 hover:text-indigo-700 flex items-center justify-center space-x-2">
