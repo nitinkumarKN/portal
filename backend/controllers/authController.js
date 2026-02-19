@@ -106,10 +106,17 @@ export const getMe = async (req, res) => {
 };
 
 // Google OAuth authentication
-export const googleAuth = passport.authenticate('google', {
-  scope: ['profile', 'email'],
-  session: false
-});
+export const googleAuth = (req, res, next) => {
+  // Check if Google OAuth is configured
+  if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    return res.redirect(`${process.env.FRONTEND_URL}/login?error=google_auth_not_configured`);
+  }
+  
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    session: false
+  })(req, res, next);
+};
 
 // Google OAuth callback handler
 export const googleAuthCallback = (req, res, next) => {
