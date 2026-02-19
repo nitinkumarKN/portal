@@ -312,7 +312,7 @@ export default function Applicants() {
                 <div>
                   {application.studentId.resumeUrl && (
                     <a
-                      href={`http://localhost:5000${application.studentId.resumeUrl}`}
+                      href={`${import.meta.env.VITE_API_URL || (import.meta.env.MODE === 'development' ? 'http://localhost:5000' : 'https://portalback-dsr4.onrender.com')}${application.studentId.resumeUrl}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-primary-600 hover:text-primary-700 flex items-center space-x-1"
