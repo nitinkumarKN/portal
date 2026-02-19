@@ -44,41 +44,41 @@ export default function RegisterPage() {
   const branches = ['CSE', 'IT', 'ECE', 'EEE', 'MECH', 'CIVIL'];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50 py-8 sm:py-12 px-4">
       <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <Briefcase className="w-12 h-12 text-primary-600 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold">Create Account</h1>
-          <p className="text-gray-600 mt-2">Join the Smart Placement Portal</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <Briefcase className="w-10 h-10 sm:w-12 sm:h-12 text-primary-600 mx-auto mb-3 sm:mb-4" />
+          <h1 className="text-2xl sm:text-3xl font-bold">Create Account</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Join the Smart Placement Portal</p>
         </div>
 
         <div className="card">
-          <div className="mb-6">
+          <div className="mb-5 sm:mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-3">I am a</label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={() => setRole('student')}
-                className={`p-4 border-2 rounded-lg transition-all ${
+                className={`p-3 sm:p-4 border-2 rounded-lg transition-all ${
                   role === 'student'
                     ? 'border-primary-600 bg-primary-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <User className="w-6 h-6 mx-auto mb-2" />
-                <div className="font-medium">Student</div>
+                <User className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2" />
+                <div className="font-medium text-sm sm:text-base">Student</div>
               </button>
               <button
                 type="button"
                 onClick={() => setRole('company')}
-                className={`p-4 border-2 rounded-lg transition-all ${
+                className={`p-3 sm:p-4 border-2 rounded-lg transition-all ${
                   role === 'company'
                     ? 'border-primary-600 bg-primary-50'
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <Building className="w-6 h-6 mx-auto mb-2" />
-                <div className="font-medium">Company</div>
+                <Building className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2" />
+                <div className="font-medium text-sm sm:text-base">Company</div>
               </button>
             </div>
           </div>

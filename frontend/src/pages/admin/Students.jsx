@@ -133,35 +133,35 @@ export default function Students() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="table-responsive custom-scrollbar">
           <table className="w-full">
             <thead>
               <tr className="border-b">
-                <th className="text-left py-3 px-4">Student</th>
-                <th className="text-left py-3 px-4">Roll No</th>
-                <th className="text-left py-3 px-4">Branch</th>
-                <th className="text-left py-3 px-4">CGPA</th>
-                <th className="text-left py-3 px-4">Phone</th>
-                <th className="text-left py-3 px-4">Resume</th>
-                <th className="text-left py-3 px-4">Status</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Student</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Roll No</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Branch</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">CGPA</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Phone</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Resume</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Status</th>
               </tr>
             </thead>
             <tbody>
               {filteredStudents.map((student) => (
                 <tr key={student._id} className="border-b hover:bg-gray-50">
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-2 sm:px-4">
                     <div>
-                      <div className="font-medium">{student.userId.name}</div>
-                      <div className="text-sm text-gray-600">{student.userId.email}</div>
+                      <div className="font-medium text-xs sm:text-sm">{student.userId.name}</div>
+                      <div className="text-xs text-gray-600 truncate max-w-[150px]">{student.userId.email}</div>
                     </div>
                   </td>
-                  <td className="py-3 px-4">{student.rollNo}</td>
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm whitespace-nowrap">{student.rollNo}</td>
+                  <td className="py-3 px-2 sm:px-4">
                     <span className="badge bg-blue-100 text-blue-700">{student.branch}</span>
                   </td>
-                  <td className="py-3 px-4 font-medium">{student.cgpa}</td>
-                  <td className="py-3 px-4">{student.phone || 'N/A'}</td>
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-2 sm:px-4 font-medium text-xs sm:text-sm">{student.cgpa}</td>
+                  <td className="py-3 px-2 sm:px-4 text-xs sm:text-sm whitespace-nowrap">{student.phone || 'N/A'}</td>
+                  <td className="py-3 px-2 sm:px-4">
                     {student.resumeUrl ? (
                       <a
                         href={student.resumeUrl}

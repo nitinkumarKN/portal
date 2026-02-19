@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Briefcase, Users, TrendingUp, FileCheck, Award, Shield, Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react';
+import { Briefcase, Users, TrendingUp, FileCheck, Award, Shield, Mail, Phone, MapPin, Linkedin, Twitter, Github, Menu, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -68,10 +69,12 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <Briefcase className="w-8 h-8 text-primary-600" />
-              <span className="text-xl font-bold text-gray-900">Smart Placement Portal</span>
+              <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600" />
+              <span className="text-lg sm:text-xl font-bold text-gray-900 truncate">Smart Placement Portal</span>
             </div>
-            <div className="flex space-x-4">
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-4">
               <Link to="/admin-login" className="text-sm text-gray-600 hover:text-gray-900 flex items-center space-x-1">
                 <Shield className="w-4 h-4" />
                 <span>Admin</span>
@@ -83,71 +86,116 @@ export default function LandingPage() {
                 Get Started
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 space-y-3 border-t">
+              <Link 
+                to="/admin-login" 
+                className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Shield className="w-4 h-4" />
+                <span>Admin Login</span>
+              </Link>
+              <Link 
+                to="/login" 
+                className="block w-full btn-secondary text-center"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+              <Link 
+                to="/register" 
+                className="block w-full btn-primary text-center"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 px-2">
             Simplifying Campus Placements
             <span className="block text-primary-600 mt-2">with Smart Automation</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-10 max-w-3xl mx-auto px-4">
             Connect students with opportunities, streamline recruitment, and track placement success—all in one powerful platform.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/register?role=student" className="btn-primary px-8 py-3 text-lg">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+            <Link to="/register?role=student" className="btn-primary px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg">
               Student Portal
             </Link>
-            <Link to="/register?role=company" className="btn-secondary px-8 py-3 text-lg">
+            <Link to="/register?role=company" className="btn-secondary px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg">
               Company Register
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold text-center mb-12">Why Choose Our Platform?</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 px-4">Why Choose Our Platform?</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <div key={index} className="card hover:shadow-lg transition-shadow">
               <div className="text-primary-600 mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-sm sm:text-base text-gray-600">{feature.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Top Companies Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-white/50 rounded-3xl">
-        <h2 className="text-3xl font-bold text-center mb-12">Top Hiring Companies</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 bg-white/50 rounded-2xl sm:rounded-3xl">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 px-4">Top Hiring Companies</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
           {topCompanies.map((company, index) => (
             <a
               key={index}
               href={company.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="card text-center hover:shadow-lg transition-all hover:scale-105"
+              className="card text-center hover:shadow-lg transition-all hover:scale-105 p-3 sm:p-6"
             >
-              <p className="font-semibold text-gray-900">{company.name}</p>
+              <p className="font-semibold text-gray-900 text-sm sm:text-base">{company.name}</p>
               <p className="text-xs text-gray-500 mt-1">View Careers →</p>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="bg-primary-600 text-white py-16">
+      <section className="bg-primary-600 text-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold mb-2">5000+</div>
-              <div className="text-primary-100">Students Placed</div>
+              <div className="text-3xl sm:text-4xl font-bold mb-2">5000+</div>
+              <div className="text-primary-100 text-sm sm:text-base">Students Placed</div>
             </div>
             <div>
-              <div className="text-4xl font-bold mb-2">200+</div>
+              <div className="text-3xl sm:text-4xl font-bold mb-2">200+</div>
+              <div className="text-primary-100 text-sm sm:text-base">Partner Companies</div>
+            </div>
+            <div>
+              <div className="text-3xl sm:text-4xl font-bold mb-2">95%</div>
+              <div className="text-primary-100 text-sm sm:text-base">Placement Rate</div>
+            </div>
+          </div>
+        </div>
+      </section>
               <div className="text-primary-100">Partner Companies</div>
             </div>
             <div>
@@ -159,9 +207,9 @@ export default function LandingPage() {
       </section>
 
       {/* Job Resources Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold text-center mb-12">Job Search Resources</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 px-4">Job Search Resources</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {resources.map((resource, index) => (
             <a
               key={index}
@@ -170,31 +218,31 @@ export default function LandingPage() {
               rel="noopener noreferrer"
               className="card hover:shadow-lg transition-all hover:scale-105"
             >
-              <h3 className="font-semibold text-lg mb-2">{resource.name}</h3>
+              <h3 className="font-semibold text-base sm:text-lg mb-2">{resource.name}</h3>
               <p className="text-sm text-gray-600">Explore jobs →</p>
             </a>
           ))}
         </div>
       </section>
 
-      <footer className="bg-gray-900 text-gray-300 py-12">
+      <footer className="bg-gray-900 text-gray-300 py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <Briefcase className="w-6 h-6" />
-                <span className="font-bold text-white">Smart Placement Portal</span>
+                <Briefcase className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="font-bold text-white text-sm sm:text-base">Smart Placement Portal</span>
               </div>
-              <p className="text-sm">Empowering students and companies to connect seamlessly.</p>
+              <p className="text-xs sm:text-sm">Empowering students and companies to connect seamlessly.</p>
               <div className="flex space-x-4 mt-4">
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  <Linkedin className="w-5 h-5" />
+                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  <Twitter className="w-5 h-5" />
+                  <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  <Github className="w-5 h-5" />
+                  <Github className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
               </div>
             </div>
@@ -217,26 +265,26 @@ export default function LandingPage() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-white mb-4">Contact</h3>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4" />
-                  <a href="mailto:placement@college.edu" className="hover:text-white">placement@college.edu</a>
+              <h3 className="font-semibold text-white mb-3 sm:mb-4 text-sm sm:text-base">Contact</h3>
+              <ul className="space-y-2 text-xs sm:text-sm">
+                <li className="flex items-start space-x-2">
+                  <Mail className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" />
+                  <a href="mailto:placement@college.edu" className="hover:text-white break-all">placement@college.edu</a>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                   <a href="tel:+911234567890" className="hover:text-white">+91 1234567890</a>
                 </li>
-                <li className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4" />
+                <li className="flex items-start space-x-2">
+                  <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" />
                   <span>College Campus, City</span>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+          <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-xs sm:text-sm">
             <p>© 2024 Smart Placement Portal. All rights reserved.</p>
-            <div className="mt-2 space-x-4">
+            <div className="mt-2 space-x-3 sm:space-x-4">
               <a href="#" className="hover:text-white">Privacy Policy</a>
               <a href="#" className="hover:text-white">Terms of Service</a>
               <a href="#" className="hover:text-white">Cookie Policy</a>

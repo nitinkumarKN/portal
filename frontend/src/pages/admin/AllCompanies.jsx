@@ -140,19 +140,20 @@ export default function AllCompanies() {
       </div>
 
       {/* Companies Table */}
-      <div className="card overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b">
-              <th className="text-left py-3 px-4">Company</th>
-              <th className="text-left py-3 px-4">Industry</th>
-              <th className="text-left py-3 px-4">Registered</th>
-              <th className="text-left py-3 px-4">Status</th>
-              <th className="text-left py-3 px-4">Active</th>
-              <th className="text-left py-3 px-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div className="card">
+        <div className="table-responsive custom-scrollbar">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Company</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Industry</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Registered</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Status</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Active</th>
+                <th className="text-left py-3 px-2 sm:px-4 text-xs sm:text-sm">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
             {filteredCompanies.map((company) => (
               <tr key={company._id} className="border-b hover:bg-gray-50">
                 <td className="py-3 px-4">
@@ -222,6 +223,7 @@ export default function AllCompanies() {
             ))}
           </tbody>
         </table>
+        </div>
 
         {filteredCompanies.length === 0 && (
           <div className="text-center py-12 text-gray-500">

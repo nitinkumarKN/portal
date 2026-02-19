@@ -32,27 +32,27 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-              <Shield className="w-10 h-10 text-indigo-600" />
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center">
+              <Shield className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-600" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Admin Portal</h1>
-          <p className="text-indigo-200">Placement Officer Access</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Admin Portal</h1>
+          <p className="text-sm sm:text-base text-indigo-200">Placement Officer Access</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign In</h2>
-            <p className="text-gray-600 text-sm">Enter your admin credentials to continue</p>
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
+          <div className="mb-5 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Sign In</h2>
+            <p className="text-gray-600 text-xs sm:text-sm">Enter your admin credentials to continue</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Admin Email

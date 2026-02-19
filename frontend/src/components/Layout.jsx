@@ -27,16 +27,16 @@ export default function Layout({ children, navigation }) {
       )}
 
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-gray-200 transition-transform lg:translate-x-0 ${
+        className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-xl font-bold text-gray-900">Portal</h2>
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Portal</h2>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-gray-500 hover:text-gray-700"
+              className="lg:hidden text-gray-500 hover:text-gray-700 p-2 -mr-2"
             >
               <X className="w-6 h-6" />
             </button>
@@ -89,30 +89,30 @@ export default function Layout({ children, navigation }) {
 
       <div className="lg:pl-64">
         <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
-          <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden text-gray-500 hover:text-gray-700"
+              className="lg:hidden text-gray-500 hover:text-gray-700 p-2 -ml-2"
             >
               <Menu className="w-6 h-6" />
             </button>
 
             <div className="flex-1 lg:flex-none"></div>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Notifications />
-              <div className="text-right">
+              <div className="hidden sm:block text-right">
                 <div className="text-sm font-medium text-gray-900">{user?.name}</div>
                 <div className="text-xs text-gray-500 capitalize">{user?.role}</div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary-600 text-white flex items-center justify-center font-semibold text-sm sm:text-base">
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
             </div>
           </div>
         </header>
 
-        <main className="p-6">{children}</main>
+        <main className="p-3 sm:p-4 lg:p-6">{children}</main>
       </div>
     </div>
   );
