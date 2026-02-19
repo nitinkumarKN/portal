@@ -96,18 +96,8 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          {/* Default Credentials Info */}
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm font-medium text-blue-900 mb-2">Default Admin Credentials:</p>
-            <div className="text-xs text-blue-700 space-y-1">
-              <p>Email: <code className="bg-blue-100 px-2 py-0.5 rounded">admin@college.edu</code></p>
-              <p>Password: <code className="bg-blue-100 px-2 py-0.5 rounded">admin123</code></p>
-            </div>
-          </div>
-
           <div className="mt-6 pt-6 border-t text-center">
             <Link to="/login" className="text-sm text-indigo-600 hover:text-indigo-700 flex items-center justify-center space-x-2">
-              <Briefcase className="w-4 h-4" />
               <span>Student/Company Login</span>
             </Link>
           </div>
